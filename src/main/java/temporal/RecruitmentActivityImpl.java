@@ -1,24 +1,5 @@
 package temporal;
 
-import io.temporal.activity.ActivityInterface;
-
-@ActivityInterface
-interface RecruitmentActivity {
-    String acceptApplication();
-
-    Boolean sendConfirmationEmail();
-
-    Boolean performAssessment(Boolean complete);
-
-    Boolean interview(int score);
-
-    void hire();
-
-    void reject();
-
-}
-
-
 public class RecruitmentActivityImpl implements RecruitmentActivity {
 
     @Override

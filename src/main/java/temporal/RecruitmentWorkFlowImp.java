@@ -5,23 +5,6 @@ import io.temporal.workflow.*;
 
 import java.time.Duration;
 
-@WorkflowInterface
-interface RecruitmentWorkFlow {
-
-    @WorkflowMethod
-    String initiateApplicationProcessing();
-
-    @SignalMethod
-    void emailSignal();
-
-    @SignalMethod
-    void assessmentSignal(Boolean decision);
-
-    @SignalMethod
-    void interviewSignal(int score);
-
-}
-
 public class RecruitmentWorkFlowImp implements RecruitmentWorkFlow {
 
     private final ActivityOptions options = ActivityOptions.newBuilder().setStartToCloseTimeout(Duration.ofSeconds(30)).build();
@@ -72,12 +55,16 @@ public class RecruitmentWorkFlowImp implements RecruitmentWorkFlow {
 
     @Override
     public void emailSignal() {
+        Workflow.sleep(Duration.ofSeconds(3));
+
         this.sendContactEmail = true;
 
     }
 
     @Override
     public void assessmentSignal(Boolean decision) {
+        Workflow.sleep(Duration.ofSeconds(3));
+
         assessmentDecision = recruitmentActivity.performAssessment(decision);
         this.isAssessmentComplete = true;
     }
@@ -85,7 +72,10 @@ public class RecruitmentWorkFlowImp implements RecruitmentWorkFlow {
 
     @Override
     public void interviewSignal(int score) {
-        interviewDecision = recruitmentActivity.interview(score);
+        Workflow.sleep(Duration.ofSeconds(3));
+
+        recruitmentActivity.interview(score);
+        interviewDecision = false;
         this.isInterviewCompleted = true;
     }
 }
