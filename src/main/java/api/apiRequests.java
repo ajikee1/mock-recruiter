@@ -13,14 +13,13 @@ public class apiRequests {
 
     private List<recruit> recruits = new ArrayList<>();
 
-
     private void addTestRecruit(){
+
         if(recruits.isEmpty()){
             recruits.add(new recruit("Ajith", "Keerikkattil", "ajith@yopmail.com", "Computer Science"));
             recruits.add(new recruit("Kari", "Dominguez", "kari@yopmail.com", "Information System"));
         }
     }
-
 
     /* ADD A RECRUIT */
     @RequestMapping(value="/recruit/", method = RequestMethod.POST)
@@ -34,14 +33,12 @@ public class apiRequests {
         return statusCode;
     }
 
-
     /* GET ALL RECRUITS */
     @RequestMapping(value="/recruits/")
     public ResponseEntity getRecruits(){
         addTestRecruit();
         return new ResponseEntity<>(recruits, HttpStatus.OK);
     }
-
 
     /* GET SPECIFIED RECRUITS BY FIRSTNAME*/
     @RequestMapping(value = "/recruit/{firstName}")
@@ -63,7 +60,6 @@ public class apiRequests {
         for(recruit r: recruits){
             if(r.getFirstName().equals(firstName)){
                 String email = r.getEmail();
-
                 //todo:: code to send email
             }
         }
